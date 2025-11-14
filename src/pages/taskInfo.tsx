@@ -8,7 +8,6 @@ export default function TaskInfoPage() {
     return (
         <div>
             <div>
-                
                 <p>Id = {task.id}</p>
                 <h1>{task.title}</h1>
                 <p>{task.description}</p>
