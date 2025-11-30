@@ -11,9 +11,11 @@ export interface Task {
 }
 
 export function createExempleTask( id? : string): Task {
+    const firstLetter = new LoremIpsum().generateWords(2)
+    const title = firstLetter.charAt(0).toUpperCase() + firstLetter.slice(1);
     return {
         id:  id ?? Math.random().toString(36).substring(2, 9),
-        title: new LoremIpsum().generateWords(3),
+        title: title,
         description: new LoremIpsum().generateSentences(2),
         status: (["todo", "in-progress", "done"] as const)[Math.floor(Math.random() * 3)],
         priority: (["low", "medium", "high"] as const)[Math.floor(Math.random() * 3)],
@@ -23,5 +25,10 @@ export function createExempleTask( id? : string): Task {
     }
 }
 
-// vou criar uma função para criar tasks de exemplo (ramdomizadas)
-// ai vai da pra testar elas no meio do projeto sem conexã o com o back
+export function arrayExempleTasks(quantity: number): Task[] {
+    const tasks: Task[] = [];
+    for (let i = 0; i < quantity; i++) {
+        tasks.push( createExempleTask() );
+    }
+    return tasks;
+}
