@@ -9,7 +9,7 @@ export default function KanbanPage() {
     const doneTasks = tasks.filter(task => task.status === "done");
 
     return (
-        <div className="flex justify-evenly gap-4 p-4 w-full h-full bg-gray-600">
+        <div className="flex justify-evenly gap-4 p-4 w-full h-full">
             <ColumnKanban color="red" title="A fazer" tasks={todoTasks} />
             <ColumnKanban color="yellow" title="Em progresso" tasks={inProgressTasks} />
             <ColumnKanban color="green" title="Concluído" tasks={doneTasks} />
