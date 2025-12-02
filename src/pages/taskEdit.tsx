@@ -1,121 +1,86 @@
-import { useParams } from "react-router-dom";
-import { createExempleTask } from "../types/task";
-import { Errors } from "@/types";
-
 import { Form } from "@heroui/form"
-import { Input } from "@heroui/input";
-import { useState } from "react";
+import { Input, Textarea } from "@heroui/input";
+import { Button } from "@heroui/button";
+import { DatePicker } from "@heroui/date-picker";
+import { Select, SelectItem } from "@heroui/select";
+import { useParams } from "react-router-dom";
+import { createExempleTask } from "@/types/task";
 
 export default function TaskEditPage() {
-    const [submitted, setSubmitted] = useState(null);
-    const [errors, setErrors] = useState<Errors>({});
-    const { id } = useParams<{ id?: string }>();
-    const task = id ? createExempleTask(id) : undefined;
-    
-    function handleSubmit(e: any) {
-        e.preventDefault();
-    }
+  const { id } = useParams<{ id: string }>();
+  const task = createExempleTask(id);
 
-    return (
-        
-    <Form
-      className="w-full justify-center items-center space-y-4"
-      validationErrors={errors}
-      onReset={() => setSubmitted(null)}
-      onSubmit={handleSubmit}
+  return (
+    <div
+      className="w-full h-full flex justify-center items-center"
     >
-      <div className="flex flex-col gap-4 max-w-md">
+      <Form
+        className="w-1/3 rounded-2xl bg-white p-6"
+        validationBehavior="aria"
+      >
         <Input
           isRequired
-          errorMessage={({validationDetails}) => {
-            if (validationDetails.valueMissing) {
-              return "Please enter your name";
-            }
-
-            return errors.name;
-          }}
-          label="Name"
+          isReadOnly
+          name="id"
+          label="Id"
           labelPlacement="outside"
-          name="name"
-          placeholder="Enter your name"
+          defaultValue={task.id}
         />
-
         <Input
           isRequired
-          errorMessage={({validationDetails}) => {
-            if (validationDetails.valueMissing) {
-              return "Please enter your email";
-            }
-            if (validationDetails.typeMismatch) {
-              return "Please enter a valid email address";
-            }
-          }}
-          label="Email"
+          name="title"
+          label="Título"
           labelPlacement="outside"
-          name="email"
-          placeholder="Enter your email"
-          type="email"
+          placeholder="Insira o titulo"
+          defaultValue={task.title}
         />
-
-        <Input
+        <Textarea
           isRequired
-          errorMessage={getPasswordError(password)}
-          isInvalid={getPasswordError(password) !== null}
-          label="Password"
+          name="description"
+          label="Descrição"
           labelPlacement="outside"
-          name="password"
-          placeholder="Enter your password"
-          type="password"
-          value={password}
-          onValueChange={setPassword}
+          placeholder="Insira a descrição"
+          defaultValue={task.description}
         />
-
         <Select
           isRequired
-          label="Country"
+          label="Status"
+          placeholder="Selecione o status"
           labelPlacement="outside"
-          name="country"
-          placeholder="Select country"
         >
-          <SelectItem key="ar">Argentina</SelectItem>
-          <SelectItem key="us">United States</SelectItem>
-          <SelectItem key="ca">Canada</SelectItem>
-          <SelectItem key="uk">United Kingdom</SelectItem>
-          <SelectItem key="au">Australia</SelectItem>
+            <SelectItem key="todo">A fazer</SelectItem>
+            <SelectItem key="in-progress">Em Progresso</SelectItem>
+            <SelectItem key="done">Concluído</SelectItem>
         </Select>
-
-        <Checkbox
+        <Select
           isRequired
-          classNames={{
-            label: "text-small",
-          }}
-          isInvalid={!!errors.terms}
-          name="terms"
-          validationBehavior="aria"
-          value="true"
-          onValueChange={() => setErrors((prev) => ({...prev, terms: undefined}))}
+          label="Prioridade"
+          placeholder="Selecione a prioridade"
+          labelPlacement="outside"
         >
-          I agree to the terms and conditions
-        </Checkbox>
-
-        {errors.terms && <span className="text-danger text-small">{errors.terms}</span>}
-
-        <div className="flex gap-4">
-          <Button className="w-full" color="primary" type="submit">
-            Submit
-          </Button>
-          <Button type="reset" variant="bordered">
-            Reset
-          </Button>
+            <SelectItem key="todo">A fazer</SelectItem>
+            <SelectItem key="in-progress">Em Progresso</SelectItem>
+            <SelectItem key="done">Concluído</SelectItem>
+        </Select>
+        <DatePicker
+          isRequired
+          name="iniDate"
+          label="Data inicial"
+          labelPlacement="outside"
+        />
+        <DatePicker
+          isRequired
+          name="endDate"
+          label="Data final"
+          labelPlacement="outside"
+        />
+        <div className="mt-6 flex justify-center gap-4 w-full">
+          <Button type="submit">Submit</Button>
+          <Button type="reset">Reset</Button>
         </div>
-      </div>
-
-      {submitted && (
-        <div className="text-small text-default-500 mt-4">
-          Submitted data: <pre>{JSON.stringify(submitted, null, 2)}</pre>
-        </div>
-      )}
-    </Form>
+      </Form>
+    </div>
   );
 }
-    
+
+// priority: "low" | "medium" | "high";
