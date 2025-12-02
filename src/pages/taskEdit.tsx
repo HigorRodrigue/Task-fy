@@ -10,6 +10,15 @@ export default function TaskEditPage() {
   const { id } = useParams<{ id: string }>();
   const task = createExempleTask(id);
 
+  if(id === undefined) {
+    task.title = "";
+    task.description = "";
+    task.status = "todo";
+    task.priority = "low";
+    task.iniDate = "";
+    task.endDate = "";
+  }
+
   return (
     <div
       className="w-full h-full flex justify-center items-center"

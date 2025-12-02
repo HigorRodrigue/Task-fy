@@ -10,8 +10,9 @@ import TaskInfoPage from "./pages/taskInfo";
 function App() {
 
   return (
-    <div className="w-screen h-screen bg-gray-600">
+    <div className="w-screen h-screen bg-gray-400">
       <Routes>
+        <Route path="/" element={<KanbanPage />} />
         <Route path="/kanban" element={<KanbanPage />} />
         <Route path="/list" element={<ListPage />} />
         <Route path="/login" element={<LoginPage />} />
