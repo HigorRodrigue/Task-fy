@@ -18,6 +18,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/taskEdit" element={<TaskEditPage />} />
         <Route path="/taskEdit/:id" element={<TaskEditPage />} />
+        <Route path="/taskInfo" element={<ListPage />}/>
         <Route path="/taskInfo/:id" element={<TaskInfoPage />}/>
       </Routes>
     </div>
