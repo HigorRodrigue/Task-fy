@@ -38,7 +38,7 @@ const users: User[] = [
     { id: '2', username: 'user', password: 'user123' }
 ];
 
-const tasks: Task[] = [
+let tasks: Task[] = [
     {
         id: '1',
         title: 'Implementar autenticação',
@@ -52,8 +52,37 @@ const tasks: Task[] = [
         id: '2',
         title: 'Criar documentação',
         description: 'Documentar todas as rotas da API',
+        status: 'done',
+        priority: 'medium',
+        iniDate: '2025-01-01',
+        endDate: '2025-01-05'
+    },
+    {
+        id: '3',
+        title: 'Testar API',
+        description: 'Testar todas as rotas da API para garantir que funcionam corretamente',
         status: 'todo',
-        priority: 'medium'
+        priority: 'low',
+        iniDate: '2025-01-01',
+        endDate: '2025-01-10'
+    },
+    {
+        id: '4',
+        title: 'Deploy da aplicação',
+        description: 'Fazer o deploy da aplicação em um servidor de produção',
+        status: 'todo',
+        priority: 'medium',
+        iniDate: '2025-01-01',
+        endDate: '2025-01-20'
+    },
+    {
+        id: '5',
+        title: 'Configurar CI/CD',
+        description: 'Configurar integração contínua e entrega contínua para o projeto',
+        status: 'in-progress',
+        priority: 'high',
+        iniDate: '2025-01-01',
+        endDate: '2025-01-25'
     }
 ];
 
@@ -122,14 +151,14 @@ app.get('/tasks/:id', (req: Request, res: Response) => {
 
 // Criar nova task
 app.post('/newTask', (req: Request, res: Response) => {
-    const taskData = req.body;
-
+    const taskData = req.body.data;
+    
     if (!taskData.title) {
         return res.status(400).json({ error: 'Título é obrigatório' });
     }
 
     const newTask: Task = {
-        id: Date.now().toString(),
+        id: (tasks.length + 1).toString(),
         title: taskData.title,
         description: taskData.description || '',
         status: taskData.status || 'todo',
@@ -145,7 +174,7 @@ app.post('/newTask', (req: Request, res: Response) => {
 // Editar task
 app.put('/editTask/:id', (req: Request, res: Response) => {
     const { id } = req.params;
-    const taskData = req.body;
+    const taskData = req.body.data;
 
     const taskIndex = tasks.findIndex(t => t.id === id);
 

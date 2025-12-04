@@ -4,13 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "complete": "concurrently \"vite\" \"nodemon --exec ts-node api.ts\"",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint --fix",
     "preview": "vite preview",
     "devhost": "vite --host",
-    "api": "nodemon --exec ts-node api.ts"
+    "api": "npx ts-node api.ts"
   },
   "dependencies": {
     "@heroui/button": "2.2.27",

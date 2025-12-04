@@ -1,3 +1,4 @@
+import { Task } from "@/types/task";
 import { axiosClient } from "../appClient";
 
 export default function getTasks() {
@@ -5,5 +6,7 @@ export default function getTasks() {
         headers: {
             token: localStorage.getItem("token") || "",
         }
-    });
+    }).then(
+            response => response.data as Task[]
+    );
 }

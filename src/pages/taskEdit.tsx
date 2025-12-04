@@ -51,23 +51,23 @@ export default function TaskEditPage() {
     if(id) {
       editTask(id, task).then(() => {
         alert("Task edited successfully!");
+        window.location.href = "/taskInfo/" + (id || task.id);
       }).catch((error) => {
         console.error("Error editing task:", error);
       });
     } else {
       newTask(task).then(() => {
         alert("Task created successfully!");
+        window.location.href = "/taskInfo/" + (id || task.id);
       }).catch((error) => {
         console.error("Error creating task:", error);
       });
     }
-
-    window.location.href = "/taskInfo/" + (id || task.id);
   }
 
   return (
     <div
-      className="w-full h-full flex justify-center items-center"
+      className="w-full mt-2 flex justify-center items-center"
     >
       <Form
         className="w-1/3 rounded-2xl bg-white p-6"

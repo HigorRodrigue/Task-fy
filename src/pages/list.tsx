@@ -1,13 +1,24 @@
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@heroui/table";
 import { Chip } from "@heroui/chip";
-import { arrayExempleTasks } from "@/types/task";
+import getTasks from "@/services/tasks/getTasks.service";
+import { useEffect, useState } from "react";
+import { Task } from "@/types/task";
 
 export default function ListPage() {
-  const tasks = arrayExempleTasks(20);
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    async function fetchTasks() {
+      const data = await getTasks();
+      setTasks(data);
+    }
+
+    fetchTasks();
+  }, []);
 
   return (
     <div
-        className="w-full h-full flex justify-center items-start p-20"
+        className="w-full flex justify-center items-start p-20"
     >
         <Table
             className="max-h-full"

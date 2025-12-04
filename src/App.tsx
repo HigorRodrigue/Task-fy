@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
+import Navbar from "./components/Navbar";
 import KanbanPage from "./pages/kanban";
 import ListPage from "./pages/list";
 import LoginPage from "./pages/login";
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <div className="w-screen h-screen bg-gray-400">
+      <Navbar />
       <Routes>
         <Route path="/" element={<KanbanPage />} />
         <Route path="/kanban" element={<KanbanPage />} />
